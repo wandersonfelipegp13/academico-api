@@ -12,7 +12,7 @@ public class ProfessorController {
 	
 	@GetMapping("/professor")
 	public Professor listar() {
-		var prof = new Professor(1L, "John Neves", "Mestre", "snow@gmail.com", "(64) 99293-9212");
+		var prof = new Professor(1L, "Joao Neves", "Mestre", "snow@gmail.com", "(64) 99293-9212");
 		return prof;
 	}
 	
