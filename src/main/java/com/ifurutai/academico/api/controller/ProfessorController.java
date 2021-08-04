@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,10 +24,12 @@ public class ProfessorController {
 	
 	// Singleton resources
 	@GetMapping("/professores/{profId}") // path variable
-	public Professor buscar(@PathVariable Long profId) {
+	public ResponseEntity<Professor>  buscar(@PathVariable Long profId) {
 		Optional<Professor> prof = profRepository.findById(profId);
-		// devolve um Optional do tipo Professor: pode ser vazio ou não
-		return prof.orElse(null);
+		// verifica se cliente tem algum valor (não nulo)
+		if(prof.isPresent())
+			return ResponseEntity.ok(prof.get());
+		return ResponseEntity.notFound().build();
 	}
 	
 }
