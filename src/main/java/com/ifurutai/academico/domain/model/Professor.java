@@ -15,6 +15,9 @@ public class Professor {
 	private String titulacao;
 	private String email;
 	private String telefone;
+	
+	public Professor() {
+	}
 
 	public Professor(Long id, String nome, String titulacao, String email, String telefone) {
 		super();
