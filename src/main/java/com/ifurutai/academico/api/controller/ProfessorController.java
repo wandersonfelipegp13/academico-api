@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,7 +32,7 @@ public class ProfessorController {
 	
 	// Singleton resources
 	@GetMapping("/{profId}") // path variable
-	public ResponseEntity<Professor>  buscar(@PathVariable Long profId) {
+	public ResponseEntity<Professor> buscar(@PathVariable Long profId) {
 		Optional<Professor> prof = profRepository.findById(profId);
 		// verifica se cliente tem algum valor (não nulo)
 		if(prof.isPresent())
@@ -42,6 +44,15 @@ public class ProfessorController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Professor adicionar(@RequestBody Professor prof) {
 		return profRepository.save(prof);
+	}
+	
+	@PutMapping("/{profId}")
+	public ResponseEntity<Professor> atualizar(@PathVariable Long profId, @RequestBody Professor prof){
+		if(!profRepository.existsById(profId))
+			return ResponseEntity.notFound().build();
+		prof.setId(profId); // garante que seja executado um update e não um insert
+		prof = profRepository.save(prof);
+		return ResponseEntity.ok(prof);
 	}
 	
 }
