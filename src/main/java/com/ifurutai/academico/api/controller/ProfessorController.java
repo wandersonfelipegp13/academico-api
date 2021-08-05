@@ -3,6 +3,8 @@ package com.ifurutai.academico.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,12 +44,12 @@ public class ProfessorController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Professor adicionar(@RequestBody Professor prof) {
+	public Professor adicionar(@Valid @RequestBody Professor prof) {
 		return profRepository.save(prof);
 	}
 	
 	@PutMapping("/{profId}")
-	public ResponseEntity<Professor> atualizar(@PathVariable Long profId, @RequestBody Professor prof){
+	public ResponseEntity<Professor> atualizar(@Valid @PathVariable Long profId, @RequestBody Professor prof){
 		if(!profRepository.existsById(profId))
 			return ResponseEntity.notFound().build();
 		prof.setId(profId); // garante que seja executado um update e não um insert
