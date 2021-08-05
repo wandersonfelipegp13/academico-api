@@ -7,29 +7,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ifurutai.academico.domain.model.Professor;
 import com.ifurutai.academico.domain.repository.ProfessorRepository;
 
 @RestController
+@RequestMapping("/professores")
 public class ProfessorController {
 	
 	@Autowired
 	private ProfessorRepository profRepository;
 	
-	@GetMapping("/professores")
+	@GetMapping
 	public List<Professor> listar() {
 		return profRepository.findAll();
 	}
 	
 	// Singleton resources
-	@GetMapping("/professores/{profId}") // path variable
+	@GetMapping("/{profId}") // path variable
 	public ResponseEntity<Professor>  buscar(@PathVariable Long profId) {
 		Optional<Professor> prof = profRepository.findById(profId);
 		// verifica se cliente tem algum valor (não nulo)
 		if(prof.isPresent())
 			return ResponseEntity.ok(prof.get());
 		return ResponseEntity.notFound().build();
+	}
+	
+	@PostMapping
+	public Professor adicionar(@RequestBody Professor prof) {
+		return profRepository.save(prof);
 	}
 	
 }
