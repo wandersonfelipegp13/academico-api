@@ -6,11 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.ifurutai.academico.domain.ValidationGroup;
 
 @Entity
 public class Professor {
 	
+	@NotNull(groups = ValidationGroup.ProfessorId.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -5,9 +5,9 @@ create table curso (
 	preco decimal(10, 2) not null,
 	nivel varchar(20) not null,
 	status varchar(20) not null,
-	prof_id bigint not null,
+	professor_id bigint not null,
 	
 	primary key(id)
 );
 
-alter table curso add constraint fk_curso_professor foreign key (prof_id) references professor (id);
+alter table curso add constraint fk_curso_professor foreign key (professor_id) references professor (id);

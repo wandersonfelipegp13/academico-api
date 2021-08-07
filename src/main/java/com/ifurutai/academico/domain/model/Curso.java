@@ -9,9 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.groups.ConvertGroup;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+import com.ifurutai.academico.domain.ValidationGroup;
 
 @Entity
 public class Curso {
@@ -33,10 +40,13 @@ public class Curso {
 	@NotBlank
 	@Size(max = 20)
 	private String nivel;
-
+	
+	@JsonProperty(access = Access.READ_ONLY)
 	@Enumerated(EnumType.STRING)
 	private StatusCurso status;
 
+	@Valid
+	@ConvertGroup(from = Default.class, to = ValidationGroup.ProfessorId.class)
 	@NotNull
 	@ManyToOne
 	private Professor professor;
