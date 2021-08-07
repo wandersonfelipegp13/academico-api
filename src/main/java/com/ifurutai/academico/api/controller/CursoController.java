@@ -27,33 +27,41 @@ public class CursoController {
 
 	@Autowired
 	private CursoService cursoService;
-	
+
 	@GetMapping
 	public List<Curso> listar() {
 		return cursoService.buscarCursos();
 	}
-	
+
+	@GetMapping("/{cursoId}") 
+	public ResponseEntity<Curso> buscar(@PathVariable Long cursoId) {
+		if (!cursoService.existeCursoPorId(cursoId))
+			return ResponseEntity.notFound().build();
+		Curso cursoRes = cursoService.buscarCursoPorId(cursoId);
+		return ResponseEntity.ok(cursoRes);
+	}
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Curso adicionar(@Valid @RequestBody Curso curso) {
 		curso.setStatus(StatusCurso.ABERTA);
 		return cursoService.inserirCurso(curso);
 	}
-	
+
 	@PutMapping("/{cursoId}")
 	public ResponseEntity<Curso> atualizar(@Valid @PathVariable Long cursoId, @RequestBody Curso curso) {
-		if(!cursoService.existeCursoPorId(cursoId))
+		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
 		Curso cursoRes = cursoService.atualizarCurso(cursoId, curso);
 		return ResponseEntity.ok(cursoRes);
 	}
-	
+
 	@DeleteMapping("/{cursoId}")
 	public ResponseEntity<Void> remover(@PathVariable Long cursoId) {
-		if(!cursoService.existeCursoPorId(cursoId))
+		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
 		cursoService.excluirCurso(cursoId);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 }

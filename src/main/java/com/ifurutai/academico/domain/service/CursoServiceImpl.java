@@ -48,6 +48,9 @@ public class CursoServiceImpl implements CursoService {
 			return null;
 		// verifico se existe o prof e gero uma exceção, caso não exista
 		
+		if(curso.getProfessor().getId() == null)
+			throw new NegocioException("Professor não informado");
+		
 		@SuppressWarnings("unused")
 		Professor prof = professorRepository.findById(curso.getProfessor().getId()).orElseThrow(() -> new NegocioException("Professor não encontrado."));
 		curso.setId(cursoId);
