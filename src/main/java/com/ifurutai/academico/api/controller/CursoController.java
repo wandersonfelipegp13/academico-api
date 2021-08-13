@@ -43,7 +43,7 @@ public class CursoController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Curso adicionar(@Valid @RequestBody Curso curso) {
+	public Curso adicionar(/*@Valid*/ @RequestBody Curso curso) {
 		curso.setStatus(StatusCurso.ABERTA);
 		return cursoService.inserirCurso(curso);
 	}
