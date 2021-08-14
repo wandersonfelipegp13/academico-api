@@ -6,17 +6,6 @@ public class ProfessorResumoModel {
 	private String nome;
 	private String titulacao;
 
-	public ProfessorResumoModel() {
-		super();
-	}
-	
-	public ProfessorResumoModel(Long id, String nome, String titulacao) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.titulacao = titulacao;
-	}
-
 	public Long getId() {
 		return id;
 	}
