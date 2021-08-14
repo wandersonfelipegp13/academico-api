@@ -81,6 +81,12 @@ public class CursoController {
 		cursoService.excluirCurso(cursoId);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@PutMapping("/{cursoId}/finalizacao")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void finalizar(@PathVariable Long cursoId) {
+		cursoService.finalizar(cursoId);
+	}
 
 	// metodos para fazer o mapeamento de Curso para CursoModel
 
