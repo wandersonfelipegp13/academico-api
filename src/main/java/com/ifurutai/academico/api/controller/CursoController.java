@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ifurutai.academico.domain.exception.CursoModel;
 import com.ifurutai.academico.domain.model.Curso;
 import com.ifurutai.academico.domain.model.CursoInputModel;
+import com.ifurutai.academico.domain.model.CursoModel;
 import com.ifurutai.academico.domain.service.CursoService;
 
 @RestController

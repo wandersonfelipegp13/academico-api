@@ -1,9 +1,6 @@
-package com.ifurutai.academico.domain.exception;
+package com.ifurutai.academico.domain.model;
 
 import java.math.BigDecimal;
-
-import com.ifurutai.academico.domain.model.ProfessorResumoModel;
-import com.ifurutai.academico.domain.model.StatusCurso;
 
 public class CursoModel {
 
