@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-// import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-// import com.ifurutai.academico.domain.ValidationGroup;
+import com.ifurutai.academico.domain.exception.CursoModel;
 import com.ifurutai.academico.domain.model.Curso;
 import com.ifurutai.academico.domain.model.StatusCurso;
 import com.ifurutai.academico.domain.service.CursoService;
@@ -36,11 +35,16 @@ public class CursoController {
 	}
 
 	@GetMapping("/{cursoId}") 
-	public ResponseEntity<Curso> buscar(@PathVariable Long cursoId) {
+	public ResponseEntity<CursoModel> buscar(@PathVariable Long cursoId) {
 		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
 		Curso cursoRes = cursoService.buscarCursoPorId(cursoId);
-		return ResponseEntity.ok(cursoRes);
+		
+		CursoModel cursoModel = new CursoModel();
+		cursoModel.setId(cursoRes.getId());
+		cursoModel.setNome(cursoRes.getNome());
+		// TODO o resto dos sets
+		return ResponseEntity.ok(cursoModel);
 	}
 
 	@PostMapping
