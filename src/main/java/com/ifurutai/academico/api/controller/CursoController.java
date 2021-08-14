@@ -35,8 +35,8 @@ public class CursoController {
 	private ModelMapper modelMapper;
 
 	@GetMapping
-	public List<Curso> listar() {
-		return cursoService.buscarCursos();
+	public List<CursoModel> listar() {
+		return toCollectionModel(cursoService.buscarCursos());
 	}
 
 	@GetMapping("/{cursoId}")
@@ -62,6 +62,7 @@ public class CursoController {
 	public ResponseEntity<CursoModel> atualizar(/*@Valid*/ @PathVariable Long cursoId, @RequestBody Curso curso) {
 		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
+		curso.setStatus(StatusCurso.ABERTA);
 		Curso cursoRes = cursoService.atualizarCurso(cursoId, curso);
 		CursoModel cursoModel = toModel(cursoRes);
 		return ResponseEntity.ok(cursoModel);
