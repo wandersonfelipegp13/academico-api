@@ -1,6 +1,7 @@
 package com.ifurutai.academico.api.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -29,7 +30,7 @@ public class CursoController {
 
 	@Autowired
 	private CursoService cursoService;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -38,24 +39,24 @@ public class CursoController {
 		return cursoService.buscarCursos();
 	}
 
-	@GetMapping("/{cursoId}") 
+	@GetMapping("/{cursoId}")
 	public ResponseEntity<CursoModel> buscar(@PathVariable Long cursoId) {
 		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
 		Curso cursoRes = cursoService.buscarCursoPorId(cursoId);
-		CursoModel cursoModel = modelMapper.map(cursoRes, CursoModel.class);
+		CursoModel cursoModel = toModel(cursoRes);
 		return ResponseEntity.ok(cursoModel);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Curso adicionar(/*@Valid*/ @RequestBody Curso curso ) {
+	public Curso adicionar(/* @Valid */ @RequestBody Curso curso) {
 		curso.setStatus(StatusCurso.ABERTA);
 		return cursoService.inserirCurso(curso);
 	}
 
 	@PutMapping("/{cursoId}")
-	public ResponseEntity<Curso> atualizar(/*@Valid*/ @PathVariable Long cursoId, @RequestBody Curso curso) {
+	public ResponseEntity<Curso> atualizar(/* @Valid */ @PathVariable Long cursoId, @RequestBody Curso curso) {
 		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
 		Curso cursoRes = cursoService.atualizarCurso(cursoId, curso);
@@ -68,6 +69,20 @@ public class CursoController {
 			return ResponseEntity.notFound().build();
 		cursoService.excluirCurso(cursoId);
 		return ResponseEntity.noContent().build();
+	}
+
+	// metodos para fazer o mapeamento de Curso para CursoModel
+
+	private CursoModel toModel(Curso curso) {
+		return modelMapper.map(curso, CursoModel.class);
+	}
+
+	private List<CursoModel> toCollectionModel(List<Curso> cursos) {
+		/**
+		 * percoro a lista, pegando um a um do tipo Curso e transformando cada um em
+		 * CursoModel.
+		 */
+		return cursos.stream().map(curso -> toModel(curso)).collect(Collectors.toList());
 	}
 
 }
