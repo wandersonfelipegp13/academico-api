@@ -59,11 +59,12 @@ public class CursoController {
 	}
 
 	@PutMapping("/{cursoId}")
-	public ResponseEntity<Curso> atualizar(/* @Valid */ @PathVariable Long cursoId, @RequestBody Curso curso) {
+	public ResponseEntity<CursoModel> atualizar(/*@Valid*/ @PathVariable Long cursoId, @RequestBody Curso curso) {
 		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
 		Curso cursoRes = cursoService.atualizarCurso(cursoId, curso);
-		return ResponseEntity.ok(cursoRes);
+		CursoModel cursoModel = toModel(cursoRes);
+		return ResponseEntity.ok(cursoModel);
 	}
 
 	@DeleteMapping("/{cursoId}")
