@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.ifurutai.academico.domain.ValidationGroup;
+import com.ifurutai.academico.domain.exception.NegocioException;
 
 @Entity
 public class Curso {
@@ -66,6 +67,20 @@ public class Curso {
 		this.professor = professor;
 	}
 
+	public boolean podeSerFinalizada() {
+		return StatusCurso.ABERTA.equals(getStatus());
+	}
+	
+	public boolean naoPodeSerFinalizada() {
+		return !podeSerFinalizada();
+	}
+	
+	public void finalizar() {
+		if(naoPodeSerFinalizada())
+			throw new NegocioException("Curso não pode ser finalizado");
+		setStatus(StatusCurso.FINALIZADA);
+	}
+	
 	public Long getId() {
 		return id;
 	}

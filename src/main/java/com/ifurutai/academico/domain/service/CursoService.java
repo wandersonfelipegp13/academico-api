@@ -12,5 +12,6 @@ public interface CursoService {
 	public abstract List<Curso> buscarCursos();
 	public abstract Curso buscarCursoPorId(Long cursoId);
 	public abstract Boolean existeCursoPorId(Long cursoId);
+	public abstract void finalizar(Long cursoId);
 	
 }

@@ -86,5 +86,14 @@ public class CursoServiceImpl implements CursoService {
 			return false;
 		return true;
 	}
+
+	@Override
+	public void finalizar(Long cursoId) {
+		// se o curso não existe, retorna null
+		Curso curso = cursoRepository.findById(cursoId).orElseThrow(() -> new NegocioException("Curso não encontrado"));
+		// defino o status e mando atualizar
+		curso.finalizar();
+		cursoRepository.save(curso);
+	}
 	
 }
