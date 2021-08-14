@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,9 @@ public class CursoController {
 
 	@Autowired
 	private CursoService cursoService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@GetMapping
 	public List<Curso> listar() {
@@ -39,23 +43,19 @@ public class CursoController {
 		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
 		Curso cursoRes = cursoService.buscarCursoPorId(cursoId);
-		
-		CursoModel cursoModel = new CursoModel();
-		cursoModel.setId(cursoRes.getId());
-		cursoModel.setNome(cursoRes.getNome());
-		// TODO o resto dos sets
+		CursoModel cursoModel = modelMapper.map(cursoRes, CursoModel.class);
 		return ResponseEntity.ok(cursoModel);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Curso adicionar(@Valid @RequestBody Curso curso ) {
+	public Curso adicionar(/*@Valid*/ @RequestBody Curso curso ) {
 		curso.setStatus(StatusCurso.ABERTA);
 		return cursoService.inserirCurso(curso);
 	}
 
 	@PutMapping("/{cursoId}")
-	public ResponseEntity<Curso> atualizar(@Valid @PathVariable Long cursoId, @RequestBody Curso curso) {
+	public ResponseEntity<Curso> atualizar(/*@Valid*/ @PathVariable Long cursoId, @RequestBody Curso curso) {
 		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
 		Curso cursoRes = cursoService.atualizarCurso(cursoId, curso);

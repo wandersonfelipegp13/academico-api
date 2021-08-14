@@ -13,7 +13,7 @@ public class CursoModel {
 	private BigDecimal preco;
 	private String nivel;
 	private StatusCurso status;
-	private ProfessorResumoModel prof;
+	private ProfessorResumoModel professor;
 
 	public Long getId() {
 		return id;
@@ -63,12 +63,12 @@ public class CursoModel {
 		this.status = status;
 	}
 
-	public ProfessorResumoModel getProf() {
-		return prof;
+	public ProfessorResumoModel getProfessor() {
+		return professor;
 	}
 
-	public void setProf(ProfessorResumoModel prof) {
-		this.prof = prof;
+	public void setProfessor(ProfessorResumoModel prof) {
+		this.professor = prof;
 	}
 
 }
