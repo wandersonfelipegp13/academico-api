@@ -77,8 +77,22 @@ public class Curso {
 	
 	public void finalizar() {
 		if(naoPodeSerFinalizada())
-			throw new NegocioException("Curso não pode ser finalizado");
+			throw new NegocioException("Curso não pode ser finalizado!");
 		setStatus(StatusCurso.FINALIZADA);
+	}
+	
+	public boolean podeSerCancelada() {
+		return StatusCurso.ABERTA.equals(getStatus());
+	}
+	
+	public boolean naoPodeSerCancelada() {
+		return !podeSerCancelada();
+	}
+	
+	public void cancelar() {
+		if(naoPodeSerCancelada())
+			throw new NegocioException("Curso não pode ser cancelado!");
+		setStatus(StatusCurso.CANCELADA);
 	}
 	
 	public Long getId() {

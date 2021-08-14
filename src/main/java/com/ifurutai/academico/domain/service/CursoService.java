@@ -13,5 +13,6 @@ public interface CursoService {
 	public abstract Curso buscarCursoPorId(Long cursoId);
 	public abstract Boolean existeCursoPorId(Long cursoId);
 	public abstract void finalizar(Long cursoId);
+	public abstract void cancelar(Long cursoId);
 	
 }

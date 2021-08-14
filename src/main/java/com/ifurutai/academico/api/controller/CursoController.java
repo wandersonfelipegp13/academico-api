@@ -87,6 +87,12 @@ public class CursoController {
 	public void finalizar(@PathVariable Long cursoId) {
 		cursoService.finalizar(cursoId);
 	}
+	
+	@PutMapping("/{cursoId}/cancelamento")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void cancelar(@PathVariable Long cursoId) {
+		cursoService.cancelar(cursoId);
+	}
 
 	// metodos para fazer o mapeamento de Curso para CursoModel
 

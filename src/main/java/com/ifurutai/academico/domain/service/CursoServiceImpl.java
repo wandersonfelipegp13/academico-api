@@ -95,5 +95,12 @@ public class CursoServiceImpl implements CursoService {
 		curso.finalizar();
 		cursoRepository.save(curso);
 	}
+
+	@Override
+	public void cancelar(Long cursoId) {
+		Curso curso = cursoRepository.findById(cursoId).orElseThrow(() -> new NegocioException("Curso não encontrado"));
+		curso.cancelar();
+		cursoRepository.save(curso);
+	}
 	
 }
