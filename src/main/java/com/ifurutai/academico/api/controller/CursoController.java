@@ -44,15 +44,18 @@ public class CursoController {
 		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
 		Curso cursoRes = cursoService.buscarCursoPorId(cursoId);
+		// DTO
 		CursoModel cursoModel = toModel(cursoRes);
 		return ResponseEntity.ok(cursoModel);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Curso adicionar(/* @Valid */ @RequestBody Curso curso) {
+	public CursoModel adicionar(/* @Valid */ @RequestBody Curso curso) {
 		curso.setStatus(StatusCurso.ABERTA);
-		return cursoService.inserirCurso(curso);
+		Curso cursoRes = cursoService.inserirCurso(curso);
+		CursoModel cursoModel = toModel(cursoRes);
+		return cursoModel;
 	}
 
 	@PutMapping("/{cursoId}")
