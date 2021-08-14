@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ifurutai.academico.domain.exception.CursoModel;
 import com.ifurutai.academico.domain.model.Curso;
+import com.ifurutai.academico.domain.model.CursoInputModel;
 import com.ifurutai.academico.domain.model.StatusCurso;
 import com.ifurutai.academico.domain.service.CursoService;
 
@@ -51,18 +52,24 @@ public class CursoController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public CursoModel adicionar(/* @Valid */ @RequestBody Curso curso) {
-		curso.setStatus(StatusCurso.ABERTA);
+	public CursoModel adicionar(@Valid @RequestBody CursoInputModel cursoInput) {
+		Curso curso = toEntity(cursoInput);
 		Curso cursoRes = cursoService.inserirCurso(curso);
 		CursoModel cursoModel = toModel(cursoRes);
 		return cursoModel;
 	}
 
 	@PutMapping("/{cursoId}")
-	public ResponseEntity<CursoModel> atualizar(/*@Valid*/ @PathVariable Long cursoId, @RequestBody Curso curso) {
+	public ResponseEntity<CursoModel> atualizar(@Valid @PathVariable Long cursoId,
+			@RequestBody CursoInputModel cursoInput) {
+		Curso curso = toEntity(cursoInput);
 		if (!cursoService.existeCursoPorId(cursoId))
 			return ResponseEntity.notFound().build();
-		curso.setStatus(StatusCurso.ABERTA);
+		// como o modelo de entrada não tem status e no BD é obrigatório, eu busco e
+		// seto novamente o status para inserir, o status é inserido pelo Service
+		Curso c = cursoService.buscarCursoPorId(cursoId);
+		curso.setStatus(c.getStatus());
+		// curso.setStatus(StatusCurso.ABERTA);
 		Curso cursoRes = cursoService.atualizarCurso(cursoId, curso);
 		CursoModel cursoModel = toModel(cursoRes);
 		return ResponseEntity.ok(cursoModel);
@@ -83,11 +90,14 @@ public class CursoController {
 	}
 
 	private List<CursoModel> toCollectionModel(List<Curso> cursos) {
-		/**
-		 * percoro a lista, pegando um a um do tipo Curso e transformando cada um em
-		 * CursoModel.
-		 */
+		// percoro a lista, pegando um a um do tipo Curso e transformando cada um em
+		// CursoModel.
 		return cursos.stream().map(curso -> toModel(curso)).collect(Collectors.toList());
+	}
+
+	// Transforma modelo de representação em modelo de domínio
+	private Curso toEntity(CursoInputModel cursoInputModel) {
+		return modelMapper.map(cursoInputModel, Curso.class);
 	}
 
 }
