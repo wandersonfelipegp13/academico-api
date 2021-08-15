@@ -21,7 +21,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		Professor profExistente = profRepository.findByEmail(prof.getEmail());
 		// Não existe o Professor e não existe outro Professor com o mesmo email
 		if(profExistente != null && !profExistente.equals(prof))
-			throw new NegocioException("Já existe um cliente cadastrado com este e-mail.");
+			throw new NegocioException("Já existe um professor cadastrado com este e-mail.");
 		return profRepository.save(prof);
 	}
 
