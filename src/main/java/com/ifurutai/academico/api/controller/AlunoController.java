@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ifurutai.academico.api.model.AlunoInputModel;
+import com.ifurutai.academico.api.model.AlunoModel;
+import com.ifurutai.academico.api.model.AlunoResumoModel;
 import com.ifurutai.academico.domain.model.Aluno;
-import com.ifurutai.academico.domain.model.AlunoInputModel;
-import com.ifurutai.academico.domain.model.AlunoModel;
-import com.ifurutai.academico.domain.model.AlunoResumoModel;
 import com.ifurutai.academico.domain.service.AlunoService;
 
 @RestController

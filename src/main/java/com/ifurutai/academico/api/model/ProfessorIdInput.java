@@ -1,9 +1,9 @@
-package com.ifurutai.academico.domain.model;
+package com.ifurutai.academico.api.model;
 
 import javax.validation.constraints.NotNull;
 
-public class TurmaIdInput {
-	
+public class ProfessorIdInput {
+
 	@NotNull
 	private Long id;
 
@@ -14,5 +14,5 @@ public class TurmaIdInput {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 }

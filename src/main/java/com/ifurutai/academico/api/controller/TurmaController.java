@@ -18,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ifurutai.academico.api.model.TurmaInputModel;
+import com.ifurutai.academico.api.model.TurmaResumoModel;
 import com.ifurutai.academico.domain.model.Turma;
-import com.ifurutai.academico.domain.model.TurmaInputModel;
-import com.ifurutai.academico.domain.model.TurmaResumoModel;
 import com.ifurutai.academico.domain.service.TurmaService;
 
 @RestController

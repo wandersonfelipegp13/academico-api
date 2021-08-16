@@ -1,9 +1,10 @@
-package com.ifurutai.academico.domain.model;
+package com.ifurutai.academico.api.model;
 
-public class AlunoResumoModel {
+public class AlunoModel {
 
 	private Long id;
 	private String nome;
+	private String cpf;
 	private String email;
 	private String telefone;
 	private TurmaResumoModel turma;
@@ -22,6 +23,14 @@ public class AlunoResumoModel {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getEmail() {

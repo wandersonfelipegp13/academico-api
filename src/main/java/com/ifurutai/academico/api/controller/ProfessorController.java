@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ifurutai.academico.api.model.ProfessorInputModel;
+import com.ifurutai.academico.api.model.ProfessorModel;
+import com.ifurutai.academico.api.model.ProfessorResumoModel;
 import com.ifurutai.academico.domain.model.Professor;
-import com.ifurutai.academico.domain.model.ProfessorInputModel;
-import com.ifurutai.academico.domain.model.ProfessorModel;
-import com.ifurutai.academico.domain.model.ProfessorResumoModel;
 import com.ifurutai.academico.domain.service.ProfessorService;
 
 @RestController
