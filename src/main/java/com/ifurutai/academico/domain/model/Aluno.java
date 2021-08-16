@@ -4,9 +4,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.groups.ConvertGroup;
+
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+import com.ifurutai.academico.domain.ValidationGroup;
 
 @Entity
 public class Aluno {
@@ -31,18 +38,25 @@ public class Aluno {
 	@NotBlank
 	@Size(max = 20)
 	private String telefone;
-	
+
+	@Valid
+	@ConvertGroup(from = Default.class, to = ValidationGroup.TurmaId.class)
+	@NotNull
+	@ManyToOne
+	private Turma turma;
+
 	public Aluno() {
 		super();
 	}
 
-	public Aluno(Long id, String nome, String cpf, String email, String telefone) {
+	public Aluno(Long id, String nome, String cpf, String email, String telefone, Turma turma) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		this.telefone = telefone;
+		this.turma = turma;
 	}
 
 	public Long getId() {
@@ -85,10 +99,18 @@ public class Aluno {
 		this.telefone = telefone;
 	}
 
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
+
 	@Override
 	public String toString() {
 		return "Aluno [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone
-				+ "]";
+				+ ", turma=" + turma + "]";
 	}
 
 	@Override
@@ -100,6 +122,7 @@ public class Aluno {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
+		result = prime * result + ((turma == null) ? 0 : turma.hashCode());
 		return result;
 	}
 
@@ -136,6 +159,11 @@ public class Aluno {
 			if (other.telefone != null)
 				return false;
 		} else if (!telefone.equals(other.telefone))
+			return false;
+		if (turma == null) {
+			if (other.turma != null)
+				return false;
+		} else if (!turma.equals(other.turma))
 			return false;
 		return true;
 	}

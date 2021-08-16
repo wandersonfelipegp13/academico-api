@@ -21,9 +21,9 @@ public class AlunoServiceImpl implements AlunoService {
 		Aluno AlunoExistenteCpf = alunoRepository.findByCpf(aluno.getCpf());
 		Aluno AlunoExistenteEmail = alunoRepository.findByEmail(aluno.getEmail());
 		if(AlunoExistenteCpf != null && !AlunoExistenteCpf.equals(aluno))
-			throw new NegocioException("Já existe um cliente cadastrado com este CPF.");
+			throw new NegocioException("Já existe um aluno cadastrado com este CPF.");
 		if(AlunoExistenteEmail != null && !AlunoExistenteEmail.equals(aluno))
-			throw new NegocioException("Já existe um cliente cadastrado com este e-mail.");
+			throw new NegocioException("Já existe um aluno cadastrado com este e-mail.");
 		return alunoRepository.save(aluno);
 	}
 
