@@ -10,6 +10,7 @@ public class TurmaResumoModel {
 	private OffsetDateTime dataFim;
 	private String horario;
 	private Long qtdVagas;
+	private CursoModel curso;
 
 	public Long getId() {
 		return id;
@@ -57,6 +58,14 @@ public class TurmaResumoModel {
 
 	public void setQtdVagas(Long qtdVagas) {
 		this.qtdVagas = qtdVagas;
+	}
+
+	public CursoModel getCurso() {
+		return curso;
+	}
+
+	public void setCurso(CursoModel curso) {
+		this.curso = curso;
 	}
 
 }

@@ -6,20 +6,23 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class TurmaInputModel {
-	
+
 	@NotBlank
 	private String turno;
-	
+
 	@NotNull
 	private OffsetDateTime dataInicio;
-	
+
 	private OffsetDateTime dataFim;
-	
+
 	@NotBlank
 	private String horario;
-	
+
 	@NotNull
 	private Long qtdVagas;
+
+	@NotNull
+	private CursoModel curso;
 
 	public String getTurno() {
 		return turno;
@@ -59,6 +62,14 @@ public class TurmaInputModel {
 
 	public void setQtdVagas(Long qtdVagas) {
 		this.qtdVagas = qtdVagas;
+	}
+
+	public CursoModel getCurso() {
+		return curso;
+	}
+
+	public void setCurso(CursoModel curso) {
+		this.curso = curso;
 	}
 
 }

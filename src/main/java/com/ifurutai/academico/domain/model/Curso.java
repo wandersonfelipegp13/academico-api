@@ -23,7 +23,8 @@ import com.ifurutai.academico.domain.exception.NegocioException;
 
 @Entity
 public class Curso {
-
+	
+	@NotNull(groups = ValidationGroup.CursoId.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

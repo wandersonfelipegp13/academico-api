@@ -6,7 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ifurutai.academico.domain.exception.NegocioException;
+import com.ifurutai.academico.domain.model.Curso;
 import com.ifurutai.academico.domain.model.Turma;
+import com.ifurutai.academico.domain.repository.CursoRepository;
 import com.ifurutai.academico.domain.repository.TurmaRepository;
 
 @Service
@@ -14,9 +17,16 @@ public class TurmaServiceImpl implements TurmaService {
 	
 	@Autowired
 	private TurmaRepository turmaRepository;
+	
+	@Autowired
+	private CursoRepository cursoRepository;
 
 	@Override
 	public Turma inserirTurma(Turma turma) {
+		@SuppressWarnings("unused")
+		Curso curso = cursoRepository.findById(turma.getCurso().getId())
+				.orElseThrow(() -> new NegocioException("Curso não encontrado."));
+		turma.setCurso(curso);
 		return turmaRepository.save(turma);
 	}
 
@@ -25,6 +35,9 @@ public class TurmaServiceImpl implements TurmaService {
 		if(!turmaRepository.existsById(turmaId))
 			return null;
 		turma.setId(turmaId);
+		@SuppressWarnings("unused")
+		Curso curso = cursoRepository.findById(turma.getCurso().getId())
+				.orElseThrow(() -> new NegocioException("Curso não encontrado."));
 		turma = turmaRepository.save(turma);
 		return turma;
 	}
