@@ -8,13 +8,18 @@ import org.springframework.stereotype.Service;
 
 import com.ifurutai.academico.domain.exception.NegocioException;
 import com.ifurutai.academico.domain.model.Aluno;
+import com.ifurutai.academico.domain.model.Turma;
 import com.ifurutai.academico.domain.repository.AlunoRepository;
+import com.ifurutai.academico.domain.repository.TurmaRepository;
 
 @Service
 public class AlunoServiceImpl implements AlunoService {
 	
 	@Autowired
 	private AlunoRepository alunoRepository;
+	
+	@Autowired
+	private TurmaRepository turmaRepository;
 
 	@Override
 	public Aluno inserirAluno(Aluno aluno) {
@@ -24,6 +29,9 @@ public class AlunoServiceImpl implements AlunoService {
 			throw new NegocioException("Já existe um aluno cadastrado com este CPF.");
 		if(AlunoExistenteEmail != null && !AlunoExistenteEmail.equals(aluno))
 			throw new NegocioException("Já existe um aluno cadastrado com este e-mail.");
+		Turma turma = turmaRepository.findById(aluno.getTurma().getId())
+				.orElseThrow(() -> new NegocioException("Turma não encontrada."));
+		aluno.setTurma(turma);
 		return alunoRepository.save(aluno);
 	}
 
@@ -32,6 +40,13 @@ public class AlunoServiceImpl implements AlunoService {
 		if(!alunoRepository.existsById(alunoId))
 			return null;
 		aluno.setId(alunoId);
+		
+		if(aluno.getTurma().getId() == null)
+			throw new NegocioException("Turma não informada.");
+		
+		Turma turma = turmaRepository.findById(aluno.getTurma().getId()).orElseThrow(() -> new NegocioException("Turma não encontrada."));
+		
+		aluno.setTurma(turma);
 		aluno = alunoRepository.save(aluno);
 		return aluno;
 	}
