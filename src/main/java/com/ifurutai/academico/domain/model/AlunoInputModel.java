@@ -1,11 +1,26 @@
 package com.ifurutai.academico.domain.model;
 
-public class AlunoInputModel {
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+public class AlunoInputModel {
+	
+	@NotBlank
 	private String nome;
+	
+	@NotBlank
 	private String cpf;
+	
+	@NotBlank
 	private String email;
+	
+	@NotBlank
 	private String telefone;
+	
+	@Valid
+	@NotNull
+	private TurmaIdInput turma;
 
 	public String getNome() {
 		return nome;
@@ -37,6 +52,14 @@ public class AlunoInputModel {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public TurmaIdInput getTurma() {
+		return turma;
+	}
+
+	public void setTurma(TurmaIdInput turma) {
+		this.turma = turma;
 	}
 
 }

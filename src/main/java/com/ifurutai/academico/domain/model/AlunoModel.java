@@ -7,6 +7,7 @@ public class AlunoModel {
 	private String cpf;
 	private String email;
 	private String telefone;
+	private TurmaResumoModel turma;
 
 	public Long getId() {
 		return id;
@@ -46,6 +47,14 @@ public class AlunoModel {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public TurmaResumoModel getTurma() {
+		return turma;
+	}
+
+	public void setTurma(TurmaResumoModel turma) {
+		this.turma = turma;
 	}
 
 }

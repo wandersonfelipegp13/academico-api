@@ -108,12 +108,6 @@ public class Aluno {
 	}
 
 	@Override
-	public String toString() {
-		return "Aluno [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone
-				+ ", turma=" + turma + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -166,6 +160,12 @@ public class Aluno {
 		} else if (!turma.equals(other.turma))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Aluno [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone
+				+ ", turma=" + turma + "]";
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.ifurutai.academico.domain.service;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +17,6 @@ public class TurmaServiceImpl implements TurmaService {
 
 	@Override
 	public Turma inserirTurma(Turma turma) {
-		// turma.setDataInicio(OffsetDateTime.now());
 		return turmaRepository.save(turma);
 	}
 

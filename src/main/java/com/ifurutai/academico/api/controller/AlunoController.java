@@ -51,10 +51,10 @@ public class AlunoController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public AlunoResumoModel adicionar(@Valid @RequestBody AlunoInputModel alunoInputModel) {
+	public AlunoModel adicionar(@Valid @RequestBody AlunoInputModel alunoInputModel) {
 		Aluno aluno = toEntity(alunoInputModel);
 		Aluno alunoRes = alunoService.inserirAluno(aluno);
-		AlunoResumoModel alunoModel = toModel(alunoRes);
+		AlunoModel alunoModel = toTestModel(alunoRes);
 		return alunoModel;
 	}
 	

@@ -19,7 +19,7 @@ public class TurmaInputModel {
 	private String horario;
 	
 	@NotNull
-	private Integer qtdVagas;
+	private Long qtdVagas;
 
 	public String getTurno() {
 		return turno;
@@ -53,11 +53,11 @@ public class TurmaInputModel {
 		this.horario = horario;
 	}
 
-	public Integer getQtdVagas() {
+	public Long getQtdVagas() {
 		return qtdVagas;
 	}
 
-	public void setQtdVagas(Integer qtdVagas) {
+	public void setQtdVagas(Long qtdVagas) {
 		this.qtdVagas = qtdVagas;
 	}
 
